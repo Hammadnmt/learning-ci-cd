@@ -24,3 +24,14 @@ jobs:
         run: npm test
       - name: console log
         run: echo "All tests passed"
+
+      - name: Send Slack Notification
+        if: always()   # <── CRITICAL: runs whether tests passed OR failed!
+        uses: slackapi/slack-github-action@v1.26.0
+        with:
+          payload: |
+            {
+              "text": "GitHub Action Result: ${{ job.status }}\nBranch: ${{ github.ref_name }}\nCommit: ${{ github.event.head_commit.message }}"
+            }
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
