@@ -21,4 +21,4 @@ jobs:
       - name: Run automated tests
         run: npm test
       - name: console log
-        run: console.log("All tests passed")
+        run: echo "All tests passed"
